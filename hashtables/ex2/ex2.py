@@ -14,7 +14,7 @@ class Ticket:
 
 def reconstruct_trip(tickets, length):
     hashtable = HashTable(length)
-    route = [None] * length
+    route = [None] * (length - 1)
 
     """
     Write a function `reconstruct_trip` to reconstruct your trip from your mass of flight tickets. Each ticket is represented as a Class with the following form:
@@ -25,10 +25,10 @@ def reconstruct_trip(tickets, length):
     for t in tickets:
         hash_table_insert(hashtable, t.source, t.destination)
 
-    current_location = "NONE"
+    route[0] = hash_table_retrieve(hashtable, "NONE")
+    for i in range(1, length - 1):
+        route[i] = hash_table_retrieve(hashtable, route[i-1])
 
-    for i in range(length):
-        route[i] = hash_table_retrieve(hashtable, current_location)
-        current_location = route[i]
+    return route
 
     return route
