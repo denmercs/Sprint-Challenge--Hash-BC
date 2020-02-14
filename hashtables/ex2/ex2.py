@@ -17,7 +17,18 @@ def reconstruct_trip(tickets, length):
     route = [None] * length
 
     """
-    YOUR CODE HERE
+    Write a function `reconstruct_trip` to reconstruct your trip from your mass of flight tickets. Each ticket is represented as a Class with the following form:
+
+    where the `source` string represents the starting airport and the `destination` string represents the next airport along our trip. The ticket for your first flight has a destination with a `source` of `NONE`, and the ticket for your final flight has a `source` with a `destination` of `NONE`. 
     """
 
-    pass
+    for t in tickets:
+        hash_table_insert(hashtable, t.source, t.destination)
+
+    current_location = "NONE"
+
+    for i in range(length):
+        route[i] = hash_table_retrieve(hashtable, current_location)
+        current_location = route[i]
+
+    return route
